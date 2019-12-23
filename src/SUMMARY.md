@@ -1,6 +1,6 @@
 # Knowledge
 
-nasaの知識を放出したもの
+nasa の知識を放出したもの
 
 - [目次](SUMMARY.md)
 - [rust](rust/chapter.md)
