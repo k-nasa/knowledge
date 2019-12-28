@@ -1,0 +1,22 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Rust version
+        run: |
+          rustc -vV
+          cargo -vV
+      - name: Setup
+        run: test -x $HOME/.cargo/bin/mdbook || ./ci/install-mdbook.sh
+
+      - name: mdbook build
+        run: mdbook build
