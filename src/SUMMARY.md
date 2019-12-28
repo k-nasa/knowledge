@@ -7,3 +7,4 @@ nasa の知識を放出したもの
   - [汎用型についてのメモ](rust/汎用型についてのメモ.md)
 - [データベースについて](database/chaper.md)
   - [トランザクション](database/トランザクションについて.md)
+- [データ構造について](data_structure/chapter.md)
