@@ -21,8 +21,7 @@ gRPC は HTTP2 の上に構築されているので、意識せずに HTTP2 の�
 - header comporession
 - etc(調べてみて下さい)
 
-
-4つの通信方式を取り扱うことが出来る
+4 つの通信方式を取り扱うことが出来る
 
 - Unary RPCs 1:1
 - Server Streaming RPCs 1:多
@@ -42,21 +41,20 @@ https://deeeet.com/writing/2018/03/30/kubernetes-grpc/
 k8s の pods は生成、破棄を繰り返します。そのたびに違う IP アドレスが割り当てられます。
 しかし、pod へのアクセスに使われるのはこの IP アドレスではありません、service が管理している VIP を返すことになります。この VIP は pod への仮想 IP アドレスと実際の pod の IP アドレスを紐付けた、アドレステーブルになっています。
 
-例えば、次のようなVIPテーブルがあったとします。http通信を普通に行っている場合はpodへのリクエストのたびにコネクションを張ることになるので、返ってくるpodのアドレスは`192.168.0.1`か`192.168.0.2`どちらになるかはその時の状況によります。(serviceによってロードバランシングされているので)
+例えば、次のような VIP テーブルがあったとします。http 通信を普通に行っている場合は pod へのリクエストのたびにコネクションを張ることになるので、返ってくる pod のアドレスは`192.168.0.1`か`192.168.0.2`どちらになるかはその時の状況によります。(service によってロードバランシングされているので)
 
 | VIP         | pod 名 | pods の実アドレス |
 | ----------- | ------ | ----------------- |
 | 192.168.0.1 | A      | xxx.yyy.0.0       |
 | 192.168.0.2 | B      | xxx.zzz.0.0       |
 
-しかし、gRPCでは一度貼ったコネクションを使い回すので、最初にpod Aにアクセスしたとしたら常にpod Aにリクエストを投げ続けることになります。
+しかし、gRPC では一度貼ったコネクションを使い回すので、最初に pod A にアクセスしたとしたら常に pod A にリクエストを投げ続けることになります。
 
-なので、何も考えずにk8s上でgRPCを使うと問題が出てしまう場合があります。
+なので、何も考えずに k8s 上で gRPC を使うと問題が出てしまう場合があります。
 
-## gRPCをk8sでやるならばどうするか？
+## gRPC を k8s でやるならばどうするか？
 
-- 1つはgRPCのclientLoadbalancingを使う方法 https://github.com/grpc/grpc/blob/master/doc/load-balancing.md
-- L7 load blancerがあれば解決するのでは?
+- 1 つは gRPC の clientLoadbalancing を使う方法 https://github.com/grpc/grpc/blob/master/doc/load-balancing.md
+- L7 load blancer があれば解決するのでは?
 
-envoyというやつでL7 load blancing出来るらしい
-
+envoy というやつで L7 load blancing 出来るらしい
