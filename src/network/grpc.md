@@ -21,6 +21,14 @@ gRPC は HTTP2 の上に構築されているので、意識せずに HTTP2 の�
 - header comporession
 - etc(調べてみて下さい)
 
+
+4つの通信方式を取り扱うことが出来る
+
+- Unary RPCs 1:1
+- Server Streaming RPCs 1:多
+- Client Streaming RPCs 多:1
+- Duplex Streaming RPCs 多:多
+
 ## k8s と gRPC の組み合わせの難しさ
 
 次のブログが参考になりました。(ここでの詳細な説明は放棄します)
@@ -46,3 +54,9 @@ k8s の pods は生成、破棄を繰り返します。そのたびに違う IP 
 なので、何も考えずにk8s上でgRPCを使うと問題が出てしまう場合があります。
 
 ## gRPCをk8sでやるならばどうするか？
+
+- 1つはgRPCのclientLoadbalancingを使う方法 https://github.com/grpc/grpc/blob/master/doc/load-balancing.md
+- L7 load blancerがあれば解決するのでは?
+
+envoyというやつでL7 load blancing出来るらしい
+
